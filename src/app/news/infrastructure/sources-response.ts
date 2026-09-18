@@ -6,6 +6,7 @@ export interface SourcesResponse {
 export interface SourceResource {
   id: string;
   name: string;
+  description: string;
   url: string;
   urlToLogo: string;
   category: string;
