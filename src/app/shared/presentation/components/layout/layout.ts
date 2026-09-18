@@ -7,6 +7,9 @@ import {LanguageSwitcher} from '../language-switcher/language-switcher';
 import {Footer} from '../footer/footer';
 import {NewsStore} from '../../../../news/application/news.store';
 import {SourceList} from '../../../../news/presentation/components/source-list/source-list';
+import {Source} from '../../../../news/domain/model/source.entity';
+import {ArticleList} from '../../../../news/presentation/components/article-list/article-list';
+
 
 @Component({
   imports: [
@@ -18,7 +21,8 @@ import {SourceList} from '../../../../news/presentation/components/source-list/s
     MatIcon,
     LanguageSwitcher,
     Footer,
-    SourceList
+    SourceList,
+    ArticleList
   ],
   selector: 'app-layout',
   styleUrl: './layout.css',
@@ -28,9 +32,16 @@ export class Layout implements OnInit {
 
   protected store = inject(NewsStore);
   protected readonly sources = this.store.sources;
+  protected readonly articles = this.store.currenSourceArticles;
 
   ngOnInit(): void {
     this.store.loadSources();
+    this.store.loadArticlesForCurrentSource();
+  }
+
+  updateArticlesBySource(source: Source) {
+    this.store.currentSource = source;
+    this.store.loadArticlesForCurrentSource();
   }
 
 }

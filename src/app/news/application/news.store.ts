@@ -13,6 +13,10 @@ export class NewsStore {
   private logoApi = inject(LogoDevApi);
 
   readonly sources = computed(() => this.sourcesSignal());
+  readonly articles = computed(() => this.articlesSignal());
+
+  public currenSourceArticles = computed(() =>
+    this.articlesSignal()[this._currentSource?.id] ?? []);
 
   private _currentSource!: Source;
 
